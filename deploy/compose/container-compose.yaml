@@ -1,0 +1,26 @@
+version: "3.9"
+services: 
+  publisher:
+    image: "quay.io/lrossett/ecal-cpp-publisher:latest-f37"
+    command:
+      - "/opt/app/_build/hello_world_snd"
+    volumes:
+      - "./volumes/ecal:/etc/ecal:z"
+    networks:
+      - ecal
+  subscriber:
+    image: "quay.io/lrossett/ecal-cpp-subscriber:latest-f37"
+    command:
+      - "/opt/app/_build/hello_world_rec"
+    volumes:
+      - "./volumes/ecal:/etc/ecal:z"
+    networks:
+      - ecal
+networks:
+  ecal:
+    ipam:
+      driver: bridge
+      config:
+        - subnet: "239.0.0.0/16"
+          ip_range: "239.0.0.0/24"
+          gateway: "255.255.255.0"

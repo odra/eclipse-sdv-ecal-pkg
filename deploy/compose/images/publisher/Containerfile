@@ -1,0 +1,11 @@
+FROM quay.io/lrossett/eclipse-ecal:latest-f37
+
+COPY app /opt/app
+
+RUN mkdir -p /opt/app/_build
+
+WORKDIR /opt/app/_build
+RUN cmake .. && \
+make
+
+WORKDIR /
