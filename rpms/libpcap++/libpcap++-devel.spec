@@ -23,7 +23,7 @@ PcapPlusPlus enables decoding and forging capabilities for a large variety of ne
 %forgesetup
 
 %build
-./configure_linux --default
+./configure-linux --default
 make
 
 %check
