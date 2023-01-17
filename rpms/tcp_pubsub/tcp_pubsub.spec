@@ -16,7 +16,6 @@ BuildRequires: g++
 BuildRequires: cmake
 BuildRequires: asio-devel
 BuildRequires: recycle
-BuildRequires: tree
 
 %description
 tcp_pubsub is a minimal publish-subscribe library that transports data via TCP. The project is CMake based. The dependencies are integrated as git submodules. In your own Project you can either use those submodules as well, or provide the dependencies in your own manner.
@@ -48,7 +47,6 @@ install _build/include/tcp_pubsub/tcp_pubsub_export.h %{buildroot}%{_includedir}
 install _build/include/tcp_pubsub/tcp_pubsub_logger.h %{buildroot}%{_includedir}/tcp_pubsub/
 install _build/include/tcp_pubsub/tcp_pubsub_version.h %{buildroot}%{_includedir}/tcp_pubsub/
 # lib
-tree _build/
 install _build/lib/libtcp_pubsub.a %{buildroot}%{_libdir}/libtcp_pubsub.a
 install _build/lib/cmake/tcp_pubsub/tcp_pubsubConfig.cmake %{buildroot}%{_libdir}/cmake/tcp_pubsub/
 install _build/lib/cmake/tcp_pubsub/tcp_pubsubTargets.cmake %{buildroot}%{_libdir}/cmake/tcp_pubsub/
