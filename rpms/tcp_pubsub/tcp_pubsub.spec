@@ -1,5 +1,5 @@
 %global forgeurl https://github.com/odra/tcp_pubsub
-%global branch master
+%global branch f36
 %global debug_package %{nil}
 
 %forgemeta -i
@@ -27,10 +27,11 @@ tcp_pubsub does not define a message format but only transports binary blobs. It
 
 %build
 cmake \
--D asio_INCLUDE_DIR=%{_includedir}/asio \
--D recycle_INCLUDE_DIR=%{_includedir}/recycle \
--DCMAKE_BUILD_TYPE=Release \
--DCMAKE_INSTALL_PREFIX=_build
+    -Dasio_INCLUDE_DIR=%{_includedir}/asio \
+    -Drecycle_INCLUDE_DIR=%{_includedir}/recycle \
+    -DBUILD_CSHARP_BINDING=OFF \
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=_build
 make
 
 %install
@@ -48,8 +49,8 @@ install _build/include/tcp_pubsub/tcp_pubsub_logger.h %{buildroot}%{_includedir}
 install _build/include/tcp_pubsub/tcp_pubsub_version.h %{buildroot}%{_includedir}/tcp_pubsub/
 # lib
 install _build/lib/libtcp_pubsub.a %{buildroot}%{_libdir}/libtcp_pubsub.a
-install _build/lib/cmake/tcp_pubsub/tcp_pubsubConfig.cmake %{buildroot}%{_libdir}/cmake/tcp_pubsub/
-install _build/lib/cmake/tcp_pubsub/tcp_pubsubTargets.cmake %{buildroot}%{_libdir}/cmake/tcp_pubsub/
+install _build/lib64/cmake/tcp_pubsub/tcp_pubsubConfig.cmake %{buildroot}%{_libdir}/cmake/tcp_pubsub/
+install _build/lib64/cmake/tcp_pubsub/tcp_pubsubTargets.cmake %{buildroot}%{_libdir}/cmake/tcp_pubsub/
 
 %files
 # headers

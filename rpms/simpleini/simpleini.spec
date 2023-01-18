@@ -11,6 +11,7 @@ URL:     %{forgeurl}
 Source:  %{forgesource}
 License: MIT
 
+BuildRequires: gcc
 BuildRequires: g++
 BuildRequires: pkgconf-pkg-config
 BuildRequires: gtest
@@ -23,9 +24,15 @@ on Windows, WinCE and Linux. Released as open-source and free using the MIT lice
 %prep
 %forgesetup
 
+%build
+gcc -g -Wall -shared -o libsimpleini.so -fPIC ConvertUTF.c
+
 %install
-mkdir -p %{buildroot}/usr/local/include/
-install -C -m 644 SimpleIni.h %{buildroot}/usr/local/include/SimpleIni.h
+mkdir -p %{buildroot}%{_includedir}
+mkdir -p %{buildroot}%{_libdir}
+install -C -m 644 SimpleIni.h %{buildroot}%{_includedir}/SimpleIni.h
+install -C -m 644 ConvertUTF.h %{buildroot}%{_includedir}/ConvertUTF.h
+install libsimpleini.so %{buildroot}%{_libdir}/libsimpleini.so
 
 %check
 cd tests
@@ -39,7 +46,9 @@ g++ -o ./tests ts-roundtrip.o ts-snippets.o ts-utf8.o ts-bugfix.o ts-quotes.o ts
 ./tests
 
 %files
-/usr/local/include/SimpleIni.h
+%{_includedir}/SimpleIni.h
+%{_includedir}/ConvertUTF.h
+%{_libdir}/libsimpleini.so
 %license LICENCE.txt
 %doc README.md
 
